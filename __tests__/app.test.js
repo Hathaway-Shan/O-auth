@@ -59,6 +59,21 @@ describe('backend-express-template routes', () => {
       status: 401,
     });
   });
+  it('#post /posts authenticated users can create posts', async () => {
+    await agent.get('/api/v1/github/callback?code=42').redirects(1);
+
+    const res = await request(app).post('/api/v1/posts').send({
+      title: 'test post',
+      content: 'This is a test post',
+    });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      user_id: expect.any(String),
+      title: 'test post',
+      content: 'This is a test post',
+    });
+  });
 
   afterAll(() => {
     pool.end();
