@@ -6,5 +6,5 @@ CREATE TABLE github_users (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   username TEXT NOT NULL,
   email TEXT,
-  avater TEXT
+  avatar TEXT
 );
