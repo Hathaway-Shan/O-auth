@@ -33,10 +33,24 @@ describe('backend-express-template routes', () => {
 
     expect(res.status).toBe(200);
 
-    res = await agent(app).delete('/api/v1/github/sessions');
+    res = await agent(app).delete('/api/v1/github/');
     expect(res.body).toEqual({
       message: 'log out successful',
     });
+  });
+  it('#get /posts returns a list of posts to an authenticated user', async () => {
+    let res = await request
+      .agent(app)
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+
+    expect(res.status).toBe(200);
+
+    res = await agent(app).get('/api/v1/github/posts/');
+    expect(res.status).toBe(200);
+    // expect(res.body[0]).toEqual({
+
+    // });
   });
 
   afterAll(() => {
